@@ -1,0 +1,60 @@
+
+<div class="whole-container" style="height: 100%;">
+    <mat-toolbar color="dark" class="toolBar">
+        <button *ngIf="ifLoggedIn" mat-button (click)="logout()" class="logout-btn">Logout</button>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-container" style="height: 98.7%;">
+        <mat-sidenav #sidenav mode="over" [(opened)]="opened" style="width: 350px;background-color: rgb(33,33,33);">
+            <div class="form-container">
+            <form [formGroup]="form" class="container" (ngSubmit)="editSub()">
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Name</mat-label>
+                    <input matInput [value]="form.value.name" placeholder="Enter Product name" formControlName="name">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="inputs">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option [value]="c._id" *ngFor="let c of categories">{{c.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Price</mat-label>
+                    <input matInput [value]="form.value.price" placeholder="Enter product price" formControlName="price">
+                </mat-form-field>
+                <label for="file">Select a file:</label>
+                    <input type="file" id="file" (change)="onFileSelected($event, form.value)">
+                <br>
+                <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary" class="editBtn" *ngIf="editAction">Apply Changes</button>
+                <button [disabled]="form.invalid" mat-raised-button color="primary" class="addBtn" (click)="add()" *ngIf="addAction">Add</button>
+            </form>
+        </div>
+        </mat-sidenav>
+        <mat-sidenav-content style="color:white;display: flex;justify-content: center;flex-direction: column;">
+            <div class="full-list-container">
+                <div class="list-container">
+                    <mat-card class="example-card" *ngFor="let g of gameList">
+                        <mat-card-header>
+                            <mat-card-title style="display: flex; font-size: large;">{{g.name}}</mat-card-title>
+                            <mat-card-subtitle style="color: grey;">{{g.category.name}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <img class="product-img" mat-card-image [src]="'http://localhost:1001/'+g.productImage"
+                            alt="Photo of video game">
+                        <mat-card-content>
+                            <h3>Price: ${{g.price}}</h3>
+                        </mat-card-content>
+                        <mat-card-actions style="padding-left: 15px;">
+                            <button mat-button  class="editIcon" (click)="editBtn(g._id, g.name, g.category._id, g.price, g.productImage)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="example-button-container">
+                <button mat-fab color="primary" aria-label="Example icon button with a home icon" (click)="plusBtn()">
+                    <mat-icon>add</mat-icon>
+                </button>
+              </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

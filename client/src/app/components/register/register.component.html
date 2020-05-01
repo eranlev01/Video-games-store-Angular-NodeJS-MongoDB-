@@ -1,0 +1,63 @@
+<mat-grid-list cols="12" rowHeight="93vh">
+    <mat-grid-tile colspan="6">
+        <div class="main-container">
+            <h3>Step 1</h3>
+            <form [formGroup]="firstForm" class="container" (ngSubmit)="continue()">
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>ID</mat-label>
+                    <input matInput placeholder="Enter your ID" formControlName="_id">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                    <mat-hint *ngIf="existUser" style="color:red">Your ID number already exist</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput placeholder="Enter your email" formControlName="email">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput placeholder="Enter your password" formControlName="password">
+                    <mat-icon  matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Password Confirm</mat-label>
+                    <input type="password" matInput placeholder="Enter your password" formControlName="password_confirm">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field><br>
+                <button type="submit" [disabled]="firstForm.invalid" mat-fab aria-label="Example icon-button with a continue icon" color="dark"> 
+                    <mat-icon>trending_flat</mat-icon>
+                </button>
+            </form>
+        </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="6">
+        <div class="main-container">
+            <h3>Step 2</h3>
+            <form [formGroup]="secondForm" class="container" (ngSubmit)="sub()">
+                <mat-form-field appearance="fill" class="inputs">
+                    <mat-label>City</mat-label>
+                    <mat-select formControlName="city">
+                        <mat-option [value]="c.name" *ngFor="let c of cities">{{c.name}}</mat-option> 
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Street</mat-label>
+                    <input matInput placeholder="Enter your street" formControlName="street">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="Enter your first name" formControlName="f_name">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="legacy" class="inputs">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Enter your last name" formControlName="l_name">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field><br>
+                <button type="submit" [disabled]="secondForm.invalid || secondForm.disabled" mat-raised-button color="primary" class="register">Create new account</button>
+            </form>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>

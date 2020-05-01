@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Play&display=swap');
+.app-container{   
+    height: 100vh;
+    width: 100vw;
+    font-family: 'Play', sans-serif;
+}
+header{
+    height: 62.5px;
+}
+.main{
+    height: 90vh;
+}
