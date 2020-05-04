@@ -1,0 +1,44 @@
+[
+{ 
+    "_id" : ObjectId("5e7274c170ce755b6a7566b9"), 
+    "name" : "Call Of Duty : Modern Warfare", 
+    "category" : ObjectId("5e726dd27c179c47eb821507"), 
+    "price" : NumberInt(65), 
+    "productImage" : "uploads/COD-MW.jpg"
+},
+{ 
+    "_id" : ObjectId("5e7cbc558446b4246b049d6f"), 
+    "name" : "FIFA 20", 
+    "category" : ObjectId("5e726dd27c179c47eb82150a"), 
+    "price" : NumberInt(50), 
+    "productImage" : "uploads/FIFA20.jpg"
+},
+{ 
+    "_id" : ObjectId("5e7df22f940f823185ac6035"), 
+    "name" : "NBA2K20", 
+    "category" : ObjectId("5e726dd27c179c47eb82150a"), 
+    "price" : NumberInt(55), 
+    "productImage" : "uploads/NBA2K20.jpg"
+},
+{ 
+    "_id" : ObjectId("5e7df67160674336da8149a2"), 
+    "name" : "PlayerUnknown's Battlegrounds", 
+    "category" : ObjectId("5e726dd27c179c47eb821507"), 
+    "price" : NumberInt(50), 
+    "productImage" : "uploads/PubG.jpg"
+},
+{ 
+    "_id" : ObjectId("5e8c6ae7d541e506a5874e03"), 
+    "name" : "APEX", 
+    "category" : ObjectId("5e726dd27c179c47eb821507"), 
+    "price" : NumberInt(45), 
+    "productImage" : "uploads/Apex-Legends_iphone_320x480.jpg"
+},
+{ 
+    "_id" : ObjectId("5e9f0849a50fbe38ace95323"), 
+    "name" : "Uncharted 4", 
+    "category" : ObjectId("5e726dd27c179c47eb821507"), 
+    "price" : NumberInt(55), 
+    "productImage" : "uploads/uncharted4.jpg"
+}
+]

@@ -1,0 +1,80 @@
+[
+{ 
+    "_id" : ObjectId("5eabea5855f7a117d399b52d"), 
+    "items" : [
+        {
+            "_id" : "5eabe84255f7a117d399b52c", 
+            "product" : {
+                "_id" : "5e7cbc558446b4246b049d6f", 
+                "name" : "FIFA 20", 
+                "category" : "5e726dd27c179c47eb82150a", 
+                "price" : NumberInt(50), 
+                "productImage" : "uploads/FIFA20.jpg"
+            }, 
+            "quantity" : NumberInt(1), 
+            "total_price" : NumberInt(50), 
+            "cart" : {
+                "_id" : "5eabe72055f7a117d399b52b", 
+                "user" : NumberInt(205205205), 
+                "status" : "open", 
+                "creation_date" : "2020-05-01T09:08:48.152Z"
+            }
+        }
+    ], 
+    "user" : NumberInt(205205205), 
+    "city" : "Haifa", 
+    "street" : "ffggg", 
+    "shipping_date" : ISODate("2020-05-13T21:00:00.000+0000"), 
+    "credit_card" : "5555", 
+    "order_price" : NumberInt(50), 
+    "order_date" : ISODate("2020-05-01T09:22:32.039+0000")
+},
+{ 
+    "_id" : ObjectId("5eabeaf755f7a117d399b534"), 
+    "items" : [
+        {
+            "_id" : "5eabeadc55f7a117d399b532", 
+            "product" : {
+                "_id" : "5e7cbc558446b4246b049d6f", 
+                "name" : "FIFA 20", 
+                "category" : "5e726dd27c179c47eb82150a", 
+                "price" : NumberInt(50), 
+                "productImage" : "uploads/FIFA20.jpg"
+            }, 
+            "quantity" : NumberInt(1), 
+            "total_price" : NumberInt(50), 
+            "cart" : {
+                "_id" : "5eabe72055f7a117d399b52b", 
+                "user" : NumberInt(205205205), 
+                "status" : "open", 
+                "creation_date" : "2020-05-01T09:08:48.152Z"
+            }
+        }, 
+        {
+            "_id" : "5eabeade55f7a117d399b533", 
+            "product" : {
+                "_id" : "5e7df67160674336da8149a2", 
+                "name" : "PlayerUnknown's Battlegrounds", 
+                "category" : "5e726dd27c179c47eb821507", 
+                "price" : NumberInt(50), 
+                "productImage" : "uploads/PubG.jpg"
+            }, 
+            "quantity" : NumberInt(2), 
+            "total_price" : NumberInt(100), 
+            "cart" : {
+                "_id" : "5eabe72055f7a117d399b52b", 
+                "user" : NumberInt(205205205), 
+                "status" : "open", 
+                "creation_date" : "2020-05-01T09:08:48.152Z"
+            }
+        }
+    ], 
+    "user" : NumberInt(205205205), 
+    "city" : "Ashdod", 
+    "street" : "Rogozin 37", 
+    "shipping_date" : ISODate("2020-05-09T21:00:00.000+0000"), 
+    "credit_card" : "2345234523452345", 
+    "order_price" : NumberInt(150), 
+    "order_date" : ISODate("2020-05-01T09:25:11.049+0000")
+}
+]

@@ -1,0 +1,9 @@
+[
+{ 
+    "_id" : ObjectId("5eafe93515db8d50c4e4429e"), 
+    "product" : ObjectId("5e7cbc558446b4246b049d6f"), 
+    "quantity" : NumberInt(1), 
+    "total_price" : NumberInt(50), 
+    "cart" : ObjectId("5eabe72055f7a117d399b52b")
+}
+]

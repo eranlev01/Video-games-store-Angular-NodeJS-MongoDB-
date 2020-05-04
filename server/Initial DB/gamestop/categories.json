@@ -1,0 +1,14 @@
+[
+{ 
+    "_id" : ObjectId("5e726dd27c179c47eb821507"), 
+    "name" : "FPS Games"
+},
+{ 
+    "_id" : ObjectId("5e726dd27c179c47eb82150a"), 
+    "name" : "Sport Games"
+},
+{ 
+    "_id" : ObjectId("5e726dd27c179c47eb82150d"), 
+    "name" : "Fantasy Games"
+}
+]

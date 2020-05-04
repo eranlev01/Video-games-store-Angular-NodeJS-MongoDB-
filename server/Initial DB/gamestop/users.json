@@ -1,0 +1,22 @@
+[
+{ 
+    "_id" : NumberInt(205205205), 
+    "isAdmin" : false, 
+    "f_name" : "Snir", 
+    "l_name" : "Israel", 
+    "email" : "snirisrael12@gmail.com", 
+    "password" : "$2b$10$OD6mViJXWYeHMRL4ytJN4unCwglukn6wis/q6sk1H28VcROG.jDSy", 
+    "city" : "Ashdod", 
+    "street" : "Rogozin"
+},
+{ 
+    "_id" : NumberInt(207206555), 
+    "isAdmin" : true, 
+    "f_name" : "Eran", 
+    "l_name" : "Lev", 
+    "email" : "eranlev1010@gmail.com", 
+    "password" : "$2b$10$OD6mViJXWYeHMRL4ytJN4unCwglukn6wis/q6sk1H28VcROG.jDSy", 
+    "city" : "Ashdod", 
+    "street" : "Rogozin"
+}
+]

@@ -1,0 +1,8 @@
+[
+{ 
+    "_id" : ObjectId("5eabe72055f7a117d399b52b"), 
+    "user" : NumberInt(205205205), 
+    "status" : "open", 
+    "creation_date" : ISODate("2020-05-01T09:08:48.152+0000")
+}
+]
