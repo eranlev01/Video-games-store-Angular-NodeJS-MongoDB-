@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
         res.json(orders)
     }
     catch (err) {
-        console.log(err)
+        res.json({ message: err })
     }
 })
 //Get Order By User Id
@@ -22,7 +22,7 @@ router.get('/:id', onlyUser, async (req, res) => {
         res.json(order)
     }
     catch (err) {
-        console.log(err)
+        res.json({ message: err })
     }
 })
 //Add Order 
@@ -40,14 +40,22 @@ router.post('/', onlyUser, async (req, res) => {
 router.delete('/:id', onlyUser, async (req, res) => {
     const { id } = req.params
     try {
-        console.log(id)
         const deletedOrder = await Order.remove({ "user": id }).populate('users')
         res.json(deletedOrder)
-        console.log(deletedOrder)
     }
     catch (err) {
         res.json({ message: err })
-        console.log(err)
+    }
+})
+//Get Available dates For Delivery
+router.get('/dates/available', onlyUser, async (req, res) => {
+
+    try {
+        const order = await Order.find({ "user": id }).populate('users')
+        res.json(order)
+    }
+    catch (err) {
+        res.json({ message: err })
     }
 })
 

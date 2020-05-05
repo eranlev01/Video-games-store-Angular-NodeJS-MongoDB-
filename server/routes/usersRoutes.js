@@ -41,21 +41,19 @@ router.post('/', async (req, res) => {
         }
     }
     catch (err) {
-        console.log(err)
         res.json({ message: err })
     }
 })
 //Login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body
-    console.log('req.body:', req.body)
     if (email && password) {
         try {
             const user = await User.find({ email })
             if (user[0]) {
                 if (bcrypt.compareSync(password, user[0].password)) {
 
-                    jwt.sign({ email, isAdmin: user[0].isAdmin }, "play_with_us", { expiresIn: "15m" },
+                    jwt.sign({ email, isAdmin: user[0].isAdmin }, "play_with_us", { expiresIn: "30m" },
                         (err, token) => {
                             if (err) {
                                 res.sendStatus(500)
@@ -71,12 +69,10 @@ router.post('/login', async (req, res) => {
             }
             else {
                 res.status(400).send("User not found")
-                console.log('usernotfound')
             }
         }
         catch (err) {
-            console.log(err)
-            console.log(req.body)
+            res.json({ message: err })
         }
 
     }

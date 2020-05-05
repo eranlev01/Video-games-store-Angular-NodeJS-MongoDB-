@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
 
 })
 //Search Product
-router.get('/products-by-name/:name', async (req, res) => {
+router.get('/products-by-name/:name', onlyUser, async (req, res) => {
 
     try {
         const { name } = req.params
@@ -63,8 +63,7 @@ router.get('/products-by-name/:name', async (req, res) => {
 
 })
 //Add Product
-router.post('/', upload.single('productImage'),  async (req, res) => {
-    console.log(req.file.path, req.body)
+router.post('/', upload.single('productImage'), onlyAdmin, async (req, res) => {
     const product = await new Product({
         name: req.body.name,
         category: req.body.category,
@@ -72,17 +71,12 @@ router.post('/', upload.single('productImage'),  async (req, res) => {
         productImage: req.file.path
     })
     try {
-        const savedProduct = await product.save()
+        await product.save()
         const newProductList = await Product.find()
-        console.log(savedProduct)
         res.json(newProductList)
-        console.log(newProductList)
-        console.log('suc')
 
     }
     catch (err) {
-        console.log('err')
-        console.log(err)
         res.json({ message: err })
     }
 })
@@ -91,13 +85,12 @@ router.put('/:id', onlyAdmin, async (req, res) => {
     const { id } = req.params
     const { name, category, price, imgPath } = req.body
     try {
-        const updated = await Product.updateOne({ '_id': id }, { 'name': name, 'category': category, 'price': price, 'imgPath': imgPath })
+        await Product.updateOne({ '_id': id }, { 'name': name, 'category': category, 'price': price, 'imgPath': imgPath })
         const products = await Product.find()
         res.json(products)
     }
     catch (err) {
         res.json({ message: err })
-        console.log(err)
     }
 })
 

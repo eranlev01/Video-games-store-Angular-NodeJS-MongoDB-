@@ -2,17 +2,17 @@ const router = require('express').Router()
 const { CartItem } = require('../models/cartitemModel')
 const onlyUser = require('../onlyUser')
 
-// Get All Items
+// Get All CartItems
 router.get('/', async (req, res) => {
     try {
         const cartItem = await CartItem.find()
         res.json(cartItem)
     }
     catch (err) {
-        console.log(err)
+        res.send(err)
     }
 })
-// Get Items By Cart ID
+// Get CartItems By Cart ID
 router.get('/:id', async (req, res) => {
 
     const { id } = req.params
@@ -22,12 +22,11 @@ router.get('/:id', async (req, res) => {
         
     }
     catch (err) {
-        console.log(err)
+        res.send(err)
     }
 })
-// add Item 
+// add cartItem 
 router.post('/', async (req, res) => {
-    console.log('req.body', req.body)
     try {
         const cartItemList = await CartItem.find()
         const duplicatdedItem = cartItemList.find(i => i.product == req.body.product)
@@ -47,38 +46,31 @@ router.post('/', async (req, res) => {
         console.log(err)
     }
 })
-//Remove All CartItems By User ID
+//Remove All CartItems By Cart ID
 router.delete('/by-cart/:id', async (req, res) => {
 
     const { id } = req.params
     try {
-        console.log('id-' ,id)
         await CartItem.deleteMany({ 'cart': id }).populate('carts')
         const newCartItemList = await CartItem.find()
         res.json(newCartItemList)
-        console.log('deleted:', newCartItemList)
-        console.log('new:' ,newCartItemList)
     }
     catch (err) {
-        console.log(err)
-        console.log('err')
+        res.send(err)
     }
 })
-//Remove Item by Id
+//Remove CartItem by Id
 router.delete('/:id', async (req, res) => {
 
     const { id } = req.params
     try {
-        console.log('id' ,id)
         const deletedCartItem = await CartItem.deleteOne({ '_id': id })
         const newCartItemList = await CartItem.find()
         res.json(newCartItemList)
-        console.log('deleted:', deletedCartItem)
-        console.log('new:' ,newCartItemList)
+
     }
     catch (err) {
-        console.log(err)
-        console.log('err')
+        res.send(err)
     }
 })
 

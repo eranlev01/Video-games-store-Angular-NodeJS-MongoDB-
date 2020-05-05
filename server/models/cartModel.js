@@ -9,8 +9,7 @@ const cartSchema = new mongoose.Schema({
     creation_date:{
         type: Date,
         default: Date.now
-    },
-    status: String
+    }
 },
 {
     versionKey: false

@@ -31,5 +31,6 @@ app.use("/api/products", require("./routes/productRoute"))
 app.use("/api/carts", require("./routes/cartRoute"))
 app.use("/api/cartitem", require("./routes/cartitemRoute"))
 app.use("/api/orders", require("./routes/ordersRoute"))
-
+app.use("/api/setup", require("./routes/setup"))
+app.use("/api/doc", require("./routes/doc"))
 app.listen(1001, () => console.log('server runs on http://localhost:1001'))
