@@ -33,7 +33,6 @@ export class AdminGameListComponent implements OnInit {
     }
     else{
       this.router.navigate(['/']);
-      console.log('You Are not an admin')
     }
    
     this.form = this._fb.group({
@@ -47,7 +46,6 @@ export class AdminGameListComponent implements OnInit {
    public logout() {
     this._us.logout()
     sessionStorage.clear()
-    console.log(sessionStorage.getItem('token'))
     this.router.navigate(['/']);
     this.ifLoggedIn = null
   }
@@ -57,13 +55,9 @@ export class AdminGameListComponent implements OnInit {
       this.opened = false
       this.addAction = false
       this.editAction = false
-      console.log(this.opened)
-      console.log( 'here:',this.addAction, 
-        this.editAction )
     }
     else {
       this.opened = true
-      console.log(this.opened)
     }
   } 
   //Apply Changes
@@ -71,7 +65,6 @@ export class AdminGameListComponent implements OnInit {
     this._gls.edit(this.form.value, this.game_id).subscribe(
       data => {
         this.gameList = data
-        console.log(this.gameList)
       },
       err => {
         console.log(err)
@@ -82,7 +75,6 @@ export class AdminGameListComponent implements OnInit {
   public editBtn(g_id, g_name, g_categoryId, g_price, g_productImage){
     this.opened = true
     this.editAction = true
-    console.log(g_name)
     this.form.setValue ({
       name : g_name,
       category: g_categoryId,
@@ -90,20 +82,14 @@ export class AdminGameListComponent implements OnInit {
       productImage: g_productImage
     })
     this.game_id = g_id
-    console.log(this.form.value, g_id)
   }
   //Add Game
   public add(): void {
     const fd: any = new FormData();
     fd.append('productImage', this.selectedFile, this.selectedFile.name);
-    //fd.append('typeOfUser', user.typeOfUser);
     fd.append('name', this.form.value.name);
     fd.append('category', this.form.value.category);
     fd.append('price', this.form.value.price);
-    console.log('fs:', fd)
-    for (var p of fd) {
-      console.log('p:', p);
-    }
     this._gls.addGame(fd)
       .subscribe(
         addedProduct => {
@@ -116,8 +102,6 @@ export class AdminGameListComponent implements OnInit {
   }
   //On Picture Selected 
   public onFileSelected(event , formValue){
-    console.log(event.target.files[0])
-    console.log(this.selectedFile)
     this.selectedFile = event.target.files[0]
     this.form.setValue ({
       name : formValue.name,
@@ -125,8 +109,6 @@ export class AdminGameListComponent implements OnInit {
       price: formValue.price,
       productImage: this.selectedFile.name
     })
-    console.log(this.form.value)
-    
   }
   //Plus Icon
   public plusBtn(){

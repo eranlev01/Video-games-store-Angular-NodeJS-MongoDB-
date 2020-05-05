@@ -1,23 +1,27 @@
-
 <div class="whole-container" style="height: 100%;">
     <mat-toolbar color="dark" class="toolBar">
         <button mat-button (click)="sidenav.toggle()">
-            <mat-icon *ngIf="cartItems.length" [matBadge]="cartItems.length" matBadgeColor="warn">shopping_cart</mat-icon>
+            <mat-icon *ngIf="cartItems.length" [matBadge]="cartItems.length" matBadgeColor="warn">shopping_cart
+            </mat-icon>
         </button>
         <form [formGroup]="searchForm" class="container" class="search-div">
             <mat-form-field class="form-field">
                 <mat-label>Search</mat-label>
                 <input type="search" matInput (input)="search()" formControlName="search">
                 <mat-icon matSuffix>search</mat-icon>
-              </mat-form-field>
-              <mat-form-field class="form-field">
+            </mat-form-field>
+            <mat-form-field class="form-field">
                 <mat-label>Category</mat-label>
                 <mat-select>
-                    <mat-option [value]="c._id" (click)="onChange(c._id)" *ngFor="let c of categories">{{c.name}}</mat-option>
+                    <mat-option [value]="c._id" (click)="onChange(c._id)" *ngFor="let c of categories">{{c.name}}
+                    </mat-option>
                 </mat-select>
             </mat-form-field>
         </form>
-        <button *ngIf="ifLoggedIn" mat-button (click)="logout()">Logout</button>
+        <div>
+            <button *ngIf="ifLoggedIn" mat-button (click)="getDoc()">Documentation</button>
+            <button *ngIf="ifLoggedIn" mat-button (click)="logout()">Logout</button>
+        </div>
     </mat-toolbar>
     <mat-sidenav-container class="example-container" style="height: 98.7%;">
         <mat-sidenav #sidenav mode="over" [(opened)]="opened" style="width: 350px;background-color: rgb(33,33,33);">
@@ -27,8 +31,11 @@
                     <mat-list class="items" *ngIf="cartItems.length">
                         <div mat-subheader>Items</div>
                         <mat-list-item *ngFor="let i of cartItems">
-                            <mat-icon class="itemRemoveBtn" (click)="removeItem(i._id)">remove_circle_outline</mat-icon>
-                            <mat-icon mat-list-icon style="margin: 0px 15px 15px 0px;"><img src="http://localhost:1001/{{i.product.productImage}}" alt="" style="width: 40px;height: 40px;border-radius: 50%;"></mat-icon>
+                            <mat-icon class="itemRemoveBtn" (click)="removeItem(i._id)" *ngIf="!order">
+                                remove_circle_outline</mat-icon>
+                            <mat-icon mat-list-icon style="margin: 0px 15px 15px 0px;"><img
+                                    src="http://localhost:1001/{{i.product.productImage}}" alt=""
+                                    style="width: 40px;height: 40px;border-radius: 50%;"></mat-icon>
                             <div mat-line class="cartItemName">{{i.product.name}}</div>
                             <div mat-line> {{i.quantity}}, ${{i.total_price}} </div>
                         </mat-list-item>
@@ -38,16 +45,41 @@
                             <mat-icon>shopping_cart</mat-icon> Total: ${{total}}
                         </h3>
                         <button mat-button *ngIf="!order" (click)="orderBtn()">Continue</button>
-                        <button mat-button *ngIf="cartItems.length" (click)="clearCart()">Remove Cart</button>
+                        <button mat-button *ngIf="cartItems.length && !order" (click)="clearCart()">Remove Cart</button>
                         <button mat-button *ngIf="order" (click)="orderBtn()">Back To Shopping</button>
                     </div>
                 </div>
             </div>
         </mat-sidenav>
-        <mat-sidenav-content style="display: flex;justify-content: center;flex-direction: column;" *ngIf="!order && !orderSucceed">
+        <mat-sidenav-content style="display: flex;justify-content: center;flex-direction: column;"
+            *ngIf="!order && !orderSucceed">
             <div class="full-list-container">
-                <div class="list-container">
-                    <mat-card class="example-card" *ngFor="let g of gameList">
+                <div>
+                 <owl-carousel-o [options]="customOptions" class="images-container">
+                    <ng-template carouselSlide>
+                        <img class="slider-img" mat-card-image src="../../../assets/images/watch_dogs.jpg"
+                                alt="Photo of video game">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img class="slider-img" mat-card-image src="../../../assets/images/2.jpg"
+                                alt="Photo of video game">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img class="slider-img" mat-card-image src="../../../assets/images/PubG.jpg"
+                                alt="Photo of video game">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img class="slider-img" mat-card-image src="../../../assets/images/Uncharted.jpg"
+                                alt="Photo of video game">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img class="slider-img" mat-card-image src="../../../assets/images/assassins-creed.jpg"
+                                alt="Photo of video game">
+                    </ng-template>
+                </owl-carousel-o>   
+                </div>
+                <div class="list-container" class="list-container">
+                <mat-card class="example-card" *ngFor="let g of gameList" >
                         <mat-card-header>
                             <mat-card-title style="display: flex; font-size: large;">{{g.name}}</mat-card-title>
                             <mat-card-subtitle>{{g.category.name}}</mat-card-subtitle>
@@ -59,7 +91,7 @@
                         </mat-card-content>
                         <mat-card-actions>
                             <button mat-button (click)="addItemCart(g, quantity.value)">Add to cart</button>
-                            Quantity: <input type="number" style="width: 35px;" #quantity > <br>
+                            Quantity: <input type="number" style="width: 35px;" #quantity> <br>
                             <span *ngIf="quantity.value == 0">{{errMessage}}</span>
                         </mat-card-actions>
                     </mat-card>
@@ -85,7 +117,7 @@
                         </mat-form-field>
                         <mat-form-field appearance="legacy" class="inputs">
                             <mat-label>Shipping Date</mat-label>
-                            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" matInput 
+                            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" matInput
                                 formControlName="shipping_date" [matDatepicker]="picker">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -93,19 +125,20 @@
                         </mat-form-field><br>
                         <mat-form-field appearance="legacy" class="inputs">
                             <mat-label>Credit Card</mat-label>
-                            <input type="text" matInput placeholder="Enter your credit card" formControlName="credit_card">
+                            <input type="text" matInput placeholder="Enter your credit card"
+                                formControlName="credit_card">
                             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                         </mat-form-field><br>
-                        <button type="submit" [disabled]="orderForm.invalid" mat-fab aria-label="Example icon-button with a continue icon" color="dark">
+                        <button type="submit" [disabled]="orderForm.invalid" mat-fab
+                            aria-label="Example icon-button with a continue icon" color="dark">
                             <mat-icon>trending_flat</mat-icon>
                         </button>
-                        
+
                     </form>
-                    <button (click)="check()"></button>
                 </div>
             </div>
         </mat-sidenav-content>
-    <mat-sidenav-content *ngIf="orderSucceed">
+        <mat-sidenav-content *ngIf="orderSucceed">
             <div class="main-container">
                 <h1>Your order has been successfully added</h1>
                 <h2>Thanks for Buying from us</h2>

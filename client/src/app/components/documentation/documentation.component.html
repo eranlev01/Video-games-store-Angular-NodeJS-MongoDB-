@@ -1,0 +1,28 @@
+<div class="whole-container" style="height: 100%;">
+    <div class="main-container">
+        <div class="post">
+            <h1>Post</h1>
+            <div *ngFor="let postDoc of doc.post_documentation" style="border: 1px solid white; padding: 30px;">
+                <h3><b>Description: </b>{{postDoc.description}}</h3>
+                <h3><b>Method and path: </b> {{postDoc. method_Path}}</h3>
+                <h3><b>Request and response: </b>{{postDoc.request_response}}</h3>
+            </div>
+        </div>
+        <div class="delete">
+            <h1>Delete</h1>
+            <div *ngFor="let deleteDoc of doc.delete_documentation" style="border: 1px solid white;">
+                <h3><b>Description: </b>{{deleteDoc.description}}</h3>
+                <h3><b>Method and path: </b> {{deleteDoc. method_Path}}</h3>
+                <h3><b>Request and response: </b>{{deleteDoc.request_response}}</h3>
+            </div>
+        </div>
+        <div class="get">
+            <h1>Get</h1>
+            <div *ngFor="let getDoc of doc.get_documentation" style="border: 1px solid white;">
+                <h3><b>Description: </b>{{getDoc.description}}</h3>
+                <h3><b>Method and path: </b> {{getDoc. method_Path}}</h3>
+                <h3><b>Request and response: </b>{{getDoc.request_response}}</h3>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,11 +17,7 @@ export class GameListService {
     return this.http.get('http://localhost:1001/api/categories')
   }
   // Add Game (Admin)
-  public addGame(body){
-    // console.log(body)
-    // for (var p of body) {
-    //   console.log(p);
-    // }
+  public addGame(body) {
     return this.http.post(`http://localhost:1001/api/products`, body)
   }
   //Edit Game (Admin)
@@ -44,11 +40,11 @@ export class GameListService {
     })
   }
   //Remove Cart By User ID
-  public removeCart(userID){
+  public removeCart(userID) {
     return this.http.delete(`http://localhost:1001/api/carts/${userID}`)
   }
   //Remove All Items From Cart By Cart ID
-  public clearAllCartItems(cartID){
+  public clearAllCartItems(cartID) {
     return this.http.delete(`http://localhost:1001/api/cartitem/by-cart/${cartID}`)
   }
   //Get Cart By User ID
@@ -75,22 +71,29 @@ export class GameListService {
   }
   //Continue To Place Order
   public placeOrder(body) {
-    console.log(body)
+
     return this.http.post(`http://localhost:1001/api/orders`, body, {
       headers: { 'Content-Type': 'application/json' },
       responseType: 'json'
     })
   }
-  public getOrderByID(id){
+  public getOrderByID(id) {
     return this.http.get(`http://localhost:1001/api/orders/${id}`, {
       headers: { 'Content-Type': 'application/json' },
       responseType: 'json'
     })
   }
   //Get PDF receipt
-  public getReceipt(){
+  public getReceipt() {
     return this.http.get('http://localhost:1001/api/orders/fetch-pdf', {
-      responseType : 'blob' 
+      responseType: 'blob'
     })
   }
+  //Get Available Dates For Delivery
+  // public availableDates(date) {
+  //   return this.http.get(`http://localhost:1001/api/orders/dates/${date}`, {
+  //     headers: { 'Content-Type': 'application/json' },
+  //     responseType: 'json'
+  //   })
+  // }
 }

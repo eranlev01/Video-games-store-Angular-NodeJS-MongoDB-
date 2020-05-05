@@ -54,6 +54,7 @@ mat-form-field{
     width: 300px;
     height: 450px;
     margin: 15px;
+    opacity: 0.6;
     background-color: rgb(20, 19, 19);
     color: white;
     font-family: 'Play', sans-serif;
@@ -64,7 +65,7 @@ mat-form-field{
 
 }
 .example-card:hover{
-    opacity: 0.75;
+    opacity: 1;
     margin-bottom: 30px;
     box-shadow: inset;
 }

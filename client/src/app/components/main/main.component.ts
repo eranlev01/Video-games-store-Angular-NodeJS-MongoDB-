@@ -36,19 +36,18 @@ export class MainComponent implements OnInit {
     this.ifLoggedIn = sessionStorage.getItem('token')
     this.isAdmin = (sessionStorage.getItem('isAdmin') === "true")
     this.firstName = sessionStorage.getItem('name')
-    if( this.ifLoggedIn){
+    if (this.ifLoggedIn) {
       this.getCartById()
       this.getItemsByID()
     }
     this.GetAllOrders()
     this.getAllGames()
   }
-   //Get All GameList
-   public getAllGames() {
+  //Get All GameList
+  public getAllGames() {
     this._gls.getAllGames().subscribe(
       data => {
         this.productList = data
-        console.log('all products:', this.productList)
       },
       err => console.log(err)
     )
@@ -56,13 +55,12 @@ export class MainComponent implements OnInit {
   //Get The specific User Cart By ID
   public getCartById() {
     const userID = sessionStorage.getItem('u_id')
-    console.log('userID:', userID)
     this._gls.getCartByID(userID).subscribe(
       data => {
         if (data[0] === undefined) {
           console.log('stop')
         }
-        else if (data[0].status === "open") {
+        else {
           sessionStorage.cart = JSON.stringify(data)
           this.cartByID = JSON.parse(sessionStorage.getItem("cart"))[0]._id
           this.getItemsByID()
@@ -76,12 +74,10 @@ export class MainComponent implements OnInit {
   //Get Item By Cart ID
   public getItemsByID() {
     const id = this.cartByID
-    console.log('cart id', this.cartByID)
     this._gls.getItemsByID(id).subscribe(
       data => {
         this.cartItems = data
         this.sumOfCartItems()
-        console.log(this.cartItems)
       },
       err => console.log(err)
     )
@@ -90,7 +86,6 @@ export class MainComponent implements OnInit {
   public sumOfCartItems() {
     let sum = 0
     for (let i = 0; i < this.cartItems.length; i++) {
-      console.log(this.cartItems)
       sum += this.cartItems[i].total_price
     }
     this.total = sum
@@ -111,15 +106,12 @@ export class MainComponent implements OnInit {
         const u_id = this.newData.user[0]._id
         sessionStorage.u_id = u_id
         this.ifLoggedIn = sessionStorage.getItem('token')
-        console.log('ifloggedin:', this.ifLoggedIn, this.newData.user[0].token)
         this.getCartById()
         this.getItemsByID()
       },
       err => {
-        console.log(err)
         const error = err
         this.errMessage = error.error
-        console.log(this.errMessage)
       }
     )
   }
@@ -135,11 +127,9 @@ export class MainComponent implements OnInit {
   //Start Shopping Button
   public startShop() {
     if (this.isAdmin) {
-      console.log('true')
       this.router.navigate(['game-list/admin']);
     }
     else {
-      console.log('false')
       this.router.navigate(['game-list/user']);
     }
   }
@@ -148,10 +138,9 @@ export class MainComponent implements OnInit {
     this.router.navigate(['/register']);
   }
   //Number Of All Orders From History
-  public GetAllOrders(){
+  public GetAllOrders() {
     this._us.getNumOfAllOrders().subscribe(
       data => {
-        console.log('all orders:', data)
         this.allOrders = data
       },
       err => console.log(err)
@@ -161,12 +150,10 @@ export class MainComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
-      data: { name: this.firstName, openItems: this.cartItems, isAdmin: this.isAdmin}
+      data: { name: this.firstName, openItems: this.cartItems, isAdmin: this.isAdmin }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
-    });
+    dialogRef.afterClosed()
   }
 
 }
@@ -187,23 +174,23 @@ export class DialogOverviewExampleDialog {
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, public router:Router) { }
-    
-    public isAdmin:any = this.checkIfAdmin();
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, public router: Router) { }
+
+  public isAdmin: any = this.checkIfAdmin();
   onStartShop(): void {
     this.dialogRef.close();
-    if (this.isAdmin) { 
+    if (this.isAdmin) {
       this.router.navigate(['game-list/admin']);
     }
     else {
       this.router.navigate(['game-list/user']);
     }
   }
-  public checkIfAdmin(){
-    if(sessionStorage.getItem('token') === 'false'){
+  public checkIfAdmin() {
+    if (sessionStorage.getItem('token') === 'false') {
       return false
     }
-    else if(sessionStorage.getItem('token') === 'true'){
+    else if (sessionStorage.getItem('token') === 'true') {
       return true
     }
   }

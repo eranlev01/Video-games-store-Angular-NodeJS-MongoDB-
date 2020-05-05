@@ -37,4 +37,7 @@ export class UserService {
   public getToken(){
     return sessionStorage.getItem('token')
   }
+  public getDoc(){
+    return this.http.get('http://localhost:1001/api/doc')
+  }
 }

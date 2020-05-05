@@ -54,15 +54,7 @@ export class RegisterComponent implements OnInit {
   //Submit Form
   public sub() {
     const fullForm = { ...this.firstForm.value, ...this.secondForm.value }
-    this._us.register(fullForm).subscribe(
-      data => {
-        console.log(fullForm)
-        console.log('suc')
-      },
-      err => {
-        console.log(err)
-      }
-    )
+    this._us.register(fullForm)
   }
   //Continue To Next Form
   public continue() {
@@ -76,9 +68,7 @@ export class RegisterComponent implements OnInit {
       },
       err => {
         if (err.error.text === "ID already exist") {
-          console.log('id already exist')
           this.existUser = true
-          console.log(this.existUser)
         }
         else {
           console.log(err)

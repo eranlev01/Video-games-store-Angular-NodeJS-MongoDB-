@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { GameListService } from 'src/app/services/game-list.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+
 import * as jsPDF from 'jspdf'
 
 @Component({
@@ -42,11 +44,11 @@ export class GamelistComponent implements OnInit {
   public opened = false
   public minDate;
   public maxDate;
+  public doc;
 
   ngOnInit(): void {
 
     if (this.ifLoggedIn) {
-      console.log('logged in')
       this.getAllGames()
       this.getAllCategories()
       this.getCartById()
@@ -75,9 +77,9 @@ export class GamelistComponent implements OnInit {
   public logout() {
     this._us.logout()
     sessionStorage.clear()
-    console.log(sessionStorage.getItem('token'))
     this.router.navigate(['/']);
     this.ifLoggedIn = null
+   
   }
   //Get All GameList
   public getAllGames() {
@@ -111,7 +113,7 @@ export class GamelistComponent implements OnInit {
   //Open Cart
   public openCart() {
     const userID = sessionStorage.getItem('u_id')
-    const newCart = { user: +userID, status: "open" }
+    const newCart = { user: +userID }
     this._gls.openCart(newCart).subscribe(
       data => {
         this.carts = data
@@ -122,10 +124,7 @@ export class GamelistComponent implements OnInit {
   //Remove Cart 
   public removeCart() {
     const userID = sessionStorage.getItem('u_id')
-    this._gls.removeCart(userID).subscribe(
-      data => console.log(data),
-      err => console.log(err)
-    )
+    this._gls.removeCart(userID)
   }
   //Remove All CartItems 
   public clearCart() {
@@ -143,7 +142,7 @@ export class GamelistComponent implements OnInit {
           this.openCart()
           this.getCartById()
         }
-        else if (data[0].status === "open") {
+        else {
           sessionStorage.cart = JSON.stringify(data)
           this.cartByID = JSON.parse(sessionStorage.getItem("cart"))[0]._id
           this.getItemsByID()
@@ -151,7 +150,7 @@ export class GamelistComponent implements OnInit {
       }
     ),
       err => {
-        console.log('err', err)
+        console.log(err)
       }
   }
   //Add CartItem
@@ -161,7 +160,6 @@ export class GamelistComponent implements OnInit {
     }
     else {
       const newCartItem = { product: g._id, quantity: +quantity, total_price: quantity * g.price, cart: this.cartByID }
-      console.log('find:', this.cartItems.find(i => i.product === g._id))
       this._gls.addCartItem(newCartItem).subscribe(
         data => this.getItemsByID(),
         err => console.log('err', err)
@@ -190,7 +188,6 @@ export class GamelistComponent implements OnInit {
   public sumOfCartItems() {
     let sum = 0
     for (let i = 0; i < this.cartItems.length; i++) {
-      console.log(this.cartItems)
       sum += this.cartItems[i].total_price
     }
     this.total = sum
@@ -219,26 +216,20 @@ export class GamelistComponent implements OnInit {
     this._gls.placeOrder(this.orderForm.value).subscribe(
       data => {
         this.orderByID()
-        console.log('your order hes been successfully added:', data)
         this.orderSucceed = true
         this.order = false
-        console.log('order:', this.order, 'orderSucceed:', this.orderSucceed)
       },
-      err => console.log('err:', err)
+      err => console.log(err)
     )
     //Remove All Cartitems By Cart ID
     this.clearCart()
   }
-  public check() {
-    console.log(this.orderForm.value)
-  }
   //Get Order By ID
   public orderByID() {
-    console.log('now its work')
     const userID = sessionStorage.getItem('u_id')
     this._gls.getOrderByID(userID).subscribe(
       data => this.orderDetailsByID = data,
-      err => console.log('err:', err)
+      err => console.log(err)
     )
   }
   //download PDF
@@ -269,11 +260,9 @@ export class GamelistComponent implements OnInit {
   public toggle() {
     if (this.opened) {
       this.opened = false
-      console.log(this.opened)
     }
     else {
       this.opened = true
-      console.log(this.opened)
     }
   }
   //Get User 
@@ -288,7 +277,6 @@ export class GamelistComponent implements OnInit {
   }
   //Inputs Auto Complete
   public autoComplete() {
-    console.log(this.userByID[0].street)
     this.orderForm.setValue({
       street: this.userByID[0].street,
       city: this.userByID[0].city,
@@ -302,5 +290,40 @@ export class GamelistComponent implements OnInit {
       data => this.categories = data,
       err => console.log(err)
     )
+  }
+  //Get Documentation 
+  public getDoc(){
+    this.router.navigate(['documentation']);
+  }
+  customOptions: OwlOptions = {
+    loop: true,
+    center: true,
+    margin: 0,
+    autoWidth:true,
+    autoplay:true,
+    autoplaySpeed: 500,
+    autoplayTimeout: 5000,
+    freeDrag: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    // navText: ['Backward', 'Forward'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
   }
 }

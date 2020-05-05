@@ -14,6 +14,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import Glide from '@glidejs/glide'
 
 
 @NgModule({

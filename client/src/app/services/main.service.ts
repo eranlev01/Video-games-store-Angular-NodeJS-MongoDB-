@@ -13,7 +13,6 @@ export class MainService {
   }
   //Get User By ID
   public getUsertByID(id){
-    console.log('id from service:', id)
     return this.http.get(`http://localhost:1001/api/users/${id}`)
   }
   // Number Of Whole Orders From History 
