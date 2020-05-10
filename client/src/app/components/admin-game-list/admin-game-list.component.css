@@ -62,12 +62,13 @@ mat-form-field{
     padding-right: 0;
     transition: ease-in-out all 0.15s;
     transition-delay: 0.05s;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
 
 }
 .example-card:hover{
     opacity: 1;
-    margin-bottom: 30px;
-    box-shadow: inset;
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
 }
 .example-header-image {
     background-size: cover;

@@ -1,24 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Play&display=swap');
 *{
     color: white;
 }
 .whole-container{
     width: 100vw; 
-    height: 92.7vh;
-    background-color: rgb(46, 45, 45);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+  
 }
 .left{
     border-right: 0.5px solid black;
-    height: 100%;
+    width: 40vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .middle{
     border-right: 0.5px solid black;
-    height: 100%;
+    width: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,6 +27,7 @@
 .right{
     border-right: 0.5px solid black;
     height: 100%;
+    width: 30vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -47,40 +49,6 @@
     justify-content: center;
     align-items: center;
 }
-/* mat-grid-tile {
-    background: rgb(37, 37, 37);
-
-} */
-/* .inOurStore{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    border: 1px solid white;
-    overflow-y: auto;
-    
-} */
-/* .available-products::-webkit-scrollbar{
-    display: none;
-}
-
-.available-products{
-    width: 35%;
-    height: 350%;
-    margin: 10px;
-    overflow-y: auto;
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
-.num-of-orders{
-    width: 35%;
-    height: 35%;
-    margin: 10px;
-} */
-/* mat-grid-list{
-    background: rgb(0, 0, 0);
-} */
 h3{
     margin: 10px;
     font-family: 'Play', sans-serif;
@@ -97,10 +65,34 @@ h2{
 
 }
 button{
-    /* margin: 10px; */
     font-family: 'Play', sans-serif;
 
 }
 span{
     margin: 10px;
+}
+@media screen and (max-width: 600px) {
+
+    .whole-container{
+        width: 100vw; 
+        height: 93vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .left{
+        height: 850px;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .middle{
+        display: none;
+    }
+    .right{
+        display: none;
+    }
+
+
 }

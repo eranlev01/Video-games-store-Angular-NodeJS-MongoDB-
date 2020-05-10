@@ -42,10 +42,11 @@ export class GamelistComponent implements OnInit {
     { name: "Holon" }
   ]
   public opened = false
+  public menuOpened = false
   public minDate;
   public maxDate;
   public doc;
-
+  public isMobile = false;
   ngOnInit(): void {
 
     if (this.ifLoggedIn) {
@@ -68,9 +69,22 @@ export class GamelistComponent implements OnInit {
         order_price: [this.total, Validators.required],
         items: [this.cartItems, Validators.required]
       })
+      this.isMobile = this.getIsMobile();
+      window.onresize = () => {
+      this.isMobile = this.getIsMobile();
+    };
     }
     else {
       this.router.navigate(['/']);
+    }
+  }
+  getIsMobile(): boolean {
+    const w = document.documentElement.clientWidth;
+    const breakpoint = 992;
+    if (w < breakpoint) {
+      return true;
+    } else {
+      return false;
     }
   }
   //Loguot
@@ -256,13 +270,23 @@ export class GamelistComponent implements OnInit {
     doc.text(45, 135, `Shipping Date: ${this.orderDetailsByID[0].shipping_date.split('T')[0]}`)
     doc.save()
   }
-  //Side Bar
-  public toggle() {
-    if (this.opened) {
-      this.opened = false
+  //Cart Side Bar
+  // public toggle() {
+  //   if (this.opened) {
+  //     this.opened = false
+  //   }
+  //   else {
+  //     this.opened = true
+  //   }
+  // }
+  //Menu Side Bar
+  public menuToggle() {
+    console.log(this.menuOpened)
+    if (this.menuOpened) {
+      this.menuOpened = false
     }
     else {
-      this.opened = true
+      this.menuOpened = true
     }
   }
   //Get User 

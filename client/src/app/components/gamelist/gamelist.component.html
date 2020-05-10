@@ -18,12 +18,39 @@
                 </mat-select>
             </mat-form-field>
         </form>
-        <div>
+        <div class="links">
             <button *ngIf="ifLoggedIn" mat-button (click)="getDoc()">Documentation</button>
-            <button *ngIf="ifLoggedIn" mat-button (click)="logout()">Logout</button>
+            <button *ngIf="ifLoggedIn" mat-button (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
         </div>
     </mat-toolbar>
-    <mat-sidenav-container class="example-container" style="height: 98.7%;">
+    <!--------------Mobile ToolBar------------->
+    <mat-toolbar color="dark" class="mobile-toolbar">
+        <div class="links">
+        <button mat-button (click)="sidenav.toggle()">
+            <mat-icon *ngIf="cartItems.length" [matBadge]="cartItems.length" matBadgeColor="warn">shopping_cart
+            </mat-icon>
+        </button>
+        
+            <button *ngIf="ifLoggedIn" mat-button (click)="getDoc()">Documentation</button>
+            <button *ngIf="ifLoggedIn" mat-button (click)="logout()"><mat-icon>exit_to_app</mat-icon></button>
+        </div>
+        <form [formGroup]="searchForm" class="container" class="search-div">
+            <mat-form-field class="form-field">
+                <mat-label>Search</mat-label>
+                <input type="search" matInput (input)="search()" formControlName="search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <mat-label>Category</mat-label>
+                <mat-select>
+                    <mat-option [value]="c._id" (click)="onChange(c._id)" *ngFor="let c of categories">{{c.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </mat-toolbar>
+    <!--------------------------->
+    <mat-sidenav-container style="height: 98.7%;">
         <mat-sidenav #sidenav mode="over" [(opened)]="opened" style="width: 350px;background-color: rgb(33,33,33);">
             <div class="cart-container">
                 <h1>My cart</h1><br>
@@ -51,6 +78,10 @@
                 </div>
             </div>
         </mat-sidenav>
+        <mat-sidenav-container class="example-container">
+            <mat-sidenav #menusidenav [opened]="true" style="width: 350px;background-color: rgb(33,33,33);" mode="over">Sidenav content</mat-sidenav>
+            <mat-sidenav-content>Main content</mat-sidenav-content>
+        </mat-sidenav-container>
         <mat-sidenav-content style="display: flex;justify-content: center;flex-direction: column;"
             *ngIf="!order && !orderSucceed">
             <div class="full-list-container">
